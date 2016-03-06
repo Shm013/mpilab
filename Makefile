@@ -1,16 +1,13 @@
-EXECS = mmul mmul-mpi
+EXECS = mmul
 
-MPICPP = mpic++
-CPP = g++
+MPICC = mpic++
+CC = g++
 CFLAGS = -std=gnu++11
 
 all: $(EXECS)
 
-mmul-mpi: mmul-mpi.cpp
-	$(MPICPP) -o mmul-mpi mmul-mpi.cpp
-
-mmul: mmul.cpp
-	$(CPP) $(CFLAGS) -o mmul mmul.cpp
+mmul: mmul.cpp matrix.h
+	$(CC) $(CFLAGS) mmul.cpp -o mmul
 
 clean:
-	rm -f $(EXECS) *.exe *.out
+	rm -f $(EXECS) *.exe *.out *.o
