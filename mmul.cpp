@@ -10,6 +10,8 @@ class Matrix: public std::vector<T> {
     int col;
     int row;
 public:
+    class Wrong_size {};
+
     Matrix() : Matrix(0, 0) {}
 
     Matrix(int columns, int rows, T init=0) : std::vector<T>(columns*rows, init) {
@@ -32,13 +34,12 @@ Matrix<T> Matrix<T>::operator*(const Matrix<T> &mB) {
 
     Matrix<T> mA = *this;
 
-    /*
-    if (mA.col != mB.row || mA.row != mB.col || mA.col > mA.row){
-        cout << "lol" << endl;
-        matrix<double> mx(0,0);
-        return mx;
+    if (mA.col > mB.col || mA.row < mB.row) {
+        throw Wrong_size();
     }
-    */
+    if (mA.col != mB.row || mA.row != mB.col) {
+        throw Wrong_size();
+    }
 
     int rowcol = mB.col;
 
@@ -60,8 +61,8 @@ Matrix<T> Matrix<T>::operator*(const Matrix<T> &mB) {
 
 int main(int argc, char* argv[])
 {
-    Matrix<double> A(30, 50);
-    Matrix<double> B(50, 30);
+    Matrix<double> B(5, 5);
+    Matrix<double> A(5, 5);
 
     int i=1;
     for (Matrix<double>::iterator it = A.begin() ; it != A.end(); ++it)
