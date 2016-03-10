@@ -1,25 +1,28 @@
+/*
+ *
+ *    matrix.h - Matrix class based on vector.
+ *    Copyright (C) 2016 Nikolay Shamanovich. 
+ *
+ *    This program is distributed under the term of the WTFPL:
+ *
+ *    0. You just DO WHAT THE FUCK YOU WANT TO.
+ *
+ */
+
+
 #ifndef MATRIX_H
 #define MATRIX_H
 
-
 #include <vector>
 
-
-template <typename T>
-class tmp {
-public:
-    void spam();
-};
-
+// Matrix class based on vector.
 template <typename T>
 class Matrix: public std::vector<T> {
     int col;
     int row;
 public:
 
-    void spam();
-
-    class Wrong_size {};
+    class Wrong_size {}; // matrix must be correct size to mutiply;
 
     Matrix() : Matrix(0, 0) {}
 
@@ -31,7 +34,9 @@ public:
 
     int cols() { return col; }
     int rows() { return row; }
-
+    
+    // matrix multipliacation: A = B * C. (A, B, C - Matrix);
+    // I could not do friend function, sorry;
     Matrix<T> operator* (const Matrix<T> &);
 };
 
