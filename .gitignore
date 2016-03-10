@@ -1,6 +1,7 @@
 # Binary file
 mmul
 mmul-mpi
+mmul-mpi-orig
 
 # Vim swap
 *.swp
