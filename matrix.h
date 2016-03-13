@@ -23,6 +23,9 @@ class Matrix: public std::vector<T> {
 public:
 
     class Wrong_size {}; // matrix must be correct size to mutiply;
+    
+    class Out_of_row {}; // used in get_row;
+    class Out_of_col {}; // used in get_col;
 
     Matrix() : Matrix(0, 0) {}
 
@@ -34,6 +37,9 @@ public:
 
     int cols() { return col; }
     int rows() { return row; }
+
+    std::vector<T> get_col(int n); // getting column number 'n' as vector;
+    std::vector<T> get_row(int n); // getting row number 'n' as vector;
     
     // matrix multipliacation: A = B * C. (A, B, C - Matrix);
     // I could not do friend function, sorry;
@@ -43,6 +49,39 @@ public:
 
 typedef Matrix<double> MatrixD;
 typedef Matrix<int>    MatrixI;
+
+
+template <typename T>
+std::vector<T> Matrix<T>::get_row(int n) {
+    Matrix<T> mA = *this;
+
+    if (n >= mA.row)
+        throw Out_of_row();
+    
+    std::vector<T> resVec(           // result row
+            mA.begin()+n*mA.col,     // from begin row
+            mA.begin()+(n+1)*mA.col  // to end row;
+            );
+
+    return resVec;
+}
+
+
+template <typename T>
+std::vector<T> Matrix<T>::get_col(int n) {
+    Matrix<T> mA = *this;
+
+    if (n >= mA.col)
+        throw Out_of_col();
+    
+    std::vector<T> resVec;
+
+    // getting column element;
+    for(int i=0; i<row; i++)
+        resVec.push_back(mA[mA.col*i+n]); 
+
+    return resVec;
+}
 
 
 template <typename T>
