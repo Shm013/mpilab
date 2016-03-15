@@ -16,11 +16,12 @@ void MatrixMultiplicationMPI(double *&A, double *&B, double *&C, int &Size) {
 	double temp;
 	MPI_Status Status;
 	int ProcPartSize = dim/ProcNum; 
-	int ProcPartElem = ProcPartSize*dim; 
+	int ProcPartElem = ProcPartSize*dim;  // ? 
 	double* bufA = new double[ProcPartElem];
 	double* bufB = new double[ProcPartElem];
 	double* bufC = new double[ProcPartElem];
-	int ProcPart = dim/ProcNum, part = ProcPart*dim;
+	int ProcPart = dim/ProcNum;
+    int part = ProcPart*dim; // ?
 	//if (ProcRank == 0) {
 		//Flip(B, Size);
 	//}
